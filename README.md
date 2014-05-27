@@ -5,7 +5,11 @@ Simple ordered list for Arduino.
 
 Create objects and add them to one or more lists ordered any way you like. The order is set on a user defined function.
 
-Usage example:
+The library contains a sample sketch demonstrating the usage of all the list methods, and another sketch showing how to create a simple event scheduler to create custom sequences of actions.
+
+Examples
+------------
+
 Create a class with any fields you need, and make sure it implements the method compare(Comparable* comparable).
 
     class Person: public Comparable
@@ -49,5 +53,5 @@ The following line would print all the names in order:
 Check the example that comes with the library to see this code in action.
 
 Version history
-===========
+------------
 1.0 released in 2014-05-27

@@ -5,12 +5,14 @@ Simple ordered list for Arduino.
 
 Create objects and add them to one or more lists ordered any way you like. The order is set on a user defined function.
 
-The library contains a sample sketch demonstrating the usage of all the list methods, and another sketch showing how to create a simple event scheduler to create custom sequences of actions.
+The library contains a sample sketch demonstrating the usage of all the list methods.
+
+A second sketch shows how to create a simple event scheduler to execute custom sequences of actions in a specific order and timing.
 
 Examples
 ------------
 
-Create a class with any fields you need, and make sure it implements the method compare(Comparable* comparable).
+Create a class with any fields you need, and make sure it implements the method compare(Comparable* comparable):
 
     class Person: public Comparable
     {
@@ -22,7 +24,7 @@ Create a class with any fields you need, and make sure it implements the method 
             long id;        
     };
     
-Implement the method compare(), which will be used to decide how the elements will be ordered.
+Implement the method compare(), which will be used to decide how the elements will be ordered:
 
     int Person::compare(Comparable* comparable)
     {
@@ -44,7 +46,7 @@ Create your list and add any elements you like.
     students->addElement(new Person("Jane", 32, 336)); 
     students->addElement(new Person("Ann", 24, 4235)); 
 
-Access the data that is ordered automatically
+Access the data that is ordered automatically.
 The following line would print all the names in order:
 
     for (int i=0; i<students->count(); i++) 
@@ -52,7 +54,8 @@ The following line would print all the names in order:
         Serial.println(((Person*)students->getPosition(i))->name);
     }
 
-Check the example that comes with the library to see this code in action.
+Check the examples that come with the library to see the code in action.
+
 
 Version history
 ------------

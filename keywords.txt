@@ -1,0 +1,28 @@
+#######################################
+# Syntax Coloring Map For OrderedList
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+OrderedList	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+addElement		KEYWORD2
+checkElement	KEYWORD2
+home			KEYWORD2
+getPosition		KEYWORD2
+removeElement	KEYWORD2
+destroyElement	KEYWORD2
+isEmpty			KEYWORD2
+count			KEYWORD2
+reset			KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+

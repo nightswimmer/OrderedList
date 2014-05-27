@@ -31,6 +31,8 @@ Implement the method compare(), which will be used to decide how the elements wi
         return strcmp(this->name, person->name);
         // To order them by age, you would do use the next line instead of the previous one
         // return this->age - person->age;
+        // To reverse any order, simply change the signal of the value
+        // return -(this->age - person->age);
     }
     
 

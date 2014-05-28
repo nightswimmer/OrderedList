@@ -52,7 +52,12 @@ class OrderedList
         void reset ();
 		
     private:	
-        // the structure of each node in the list.
+		// Removes a link from a specific position of the list
+		// deleting the object depending on the destroy parameter
+		// used to implement the removeElement and destroyElement methods
+    	void deletePosition (byte pos, bool destroy);
+
+		// the structure of each node in the list.
         typedef struct _node 
     	{
             Comparable* item;

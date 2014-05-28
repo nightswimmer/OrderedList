@@ -110,7 +110,7 @@ void setup()
     Serial.println();
 
     // Now doing some removals
-    Serial.println(F("Deleting the first element"));
+    Serial.println(F("Deleting the first element (position 0 in the current list)"));
     // This removes the object from the list and destroys it (deletes it from memory)
     students->destroyElement(0);
     // To remove the element from the list but not destroy the object, use
@@ -121,15 +121,25 @@ void setup()
     for (int i=0; i<students->count(); i++) ((Person*)students->getPosition(i))->printData();
     Serial.println();
     
-    // Now removing an element in the middle of the list
-    Serial.println(F("Now deleting the second element"));
-    students->destroyElement(2);
-    
+
+    // Now removing an element in the end of the list
+    Serial.println(F("Now deleting the last element (position 3 in the current list)"));
+    students->destroyElement(3);    
     // Let's see the list again...
     Serial.println(F("Printing the elements again"));
     for (int i=0; i<students->count(); i++) ((Person*)students->getPosition(i))->printData();
     Serial.println();
-    
+
+
+    // Now removing an element in the middle of the list
+    Serial.println(F("Now deleting the second element (position 1 in the current list)"));
+    students->destroyElement(1);    
+    // Let's see the list again...
+    Serial.println(F("Printing the elements again"));
+    for (int i=0; i<students->count(); i++) ((Person*)students->getPosition(i))->printData();
+    Serial.println();
+
+
     // Deleting everything, all the memory should be free again
     Serial.println(F("Destroying the list, deleting all the elements"));
     delete(students);

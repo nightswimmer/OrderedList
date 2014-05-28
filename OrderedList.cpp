@@ -79,7 +79,7 @@ int OrderedList::checkElement (Comparable* element)
 // or NULL if the position is invalid
 Comparable* OrderedList::getPosition (byte pos)
 {
-	if ( pos>=size) return NULL;
+	if (pos>=size) return NULL;
 	byte steps;
 	// Checks if we can use the shortcut
 	// We can't do it if the position we want is before the shortcut
@@ -99,23 +99,40 @@ Comparable* OrderedList::getPosition (byte pos)
 	return nodeShortcut->item;
 }
 
-// Removes the element in the specified position
-// If does not delete the object, only removes it from the list
-// If the position is invalid nothing happens
-void OrderedList::removeElement (byte pos)
+// Removes a link from a specific position of the list
+// deleting the object depending on the destroy parameter
+// used to implement the removeElement and destroyElement methods
+void OrderedList::deletePosition (byte pos, bool destroy)
 {
-	if (pos> size) return;
-	pNode remove_node = head;
-	pNode previous_remove_node = NULL;
-	// Searches for the node to remove, remembering the previous one
-	for(byte i=0; i<pos; i++)
+	// If the position is invalid doesn't do anything
+	if (pos>=size) return;
+	pNode remove_node;
+	pNode previous_remove_node;
+	// If we're removing the first element, then the node to remove is 
+	// the head node, and there is no previous node
+	if (pos == 0)
 	{
-		previous_remove_node = remove_node;
-		remove_node = remove_node->nextNode;
-	}	
+		remove_node = head;
+	}
+	// If we're not removing the head, let's look for the node to remove
+	else
+	{
+		// Searches for the node PREVIOUS to the node we want to remove
+		previous_remove_node = head;
+		for(byte i=0; i<pos-1; i++)
+			previous_remove_node = previous_remove_node->nextNode;
+		// Now what we found the previous node, the one we want to remove is the next one	
+		remove_node = previous_remove_node->nextNode;
+	}
+	// Deletes the selected node
+	if (destroy) delete(remove_node->item);
+	
 	// Updates the links so the surrounding nodes are connected properly
-	if (previous_remove_node != NULL)
+	// If the node we just removed was NOT the head, then the previous node
+	// needs to point to the the node after the one we just removed
+	if (pos > 0)
 		previous_remove_node->nextNode = remove_node->nextNode;
+	// If the node removed was the head, then we just update the head to the new value	
 	else head = remove_node->nextNode;
 	free(remove_node);
 	size--;
@@ -123,31 +140,20 @@ void OrderedList::removeElement (byte pos)
 	posShortcut = 0;
 }
 
+// Removes the element in the specified position
+// If does not delete the object, only removes it from the list
+// If the position is invalid nothing happens
+void OrderedList::removeElement (byte pos)
+{
+	deletePosition (pos, false);
+}
+
 // Removes the element in the specified position from the list
 // This also destroys the object that is removed
 // If the position is invalid nothing happens
 void OrderedList::destroyElement (byte pos)
 {
-	if (pos> size) return;
-	pNode remove_node = head;
-	pNode previous_remove_node = NULL;
-	// Searches for the node to remove, remembering the previous one
-	for(byte i=0; i<pos; i++)
-	{
-		previous_remove_node = remove_node;
-		remove_node = remove_node->nextNode;
-	}
-	// Deletes the selected node
-	delete(remove_node->item);
-	
-	// Updates the links so the surrounding nodes are connected properly
-	if (previous_remove_node != NULL)
-		previous_remove_node->nextNode = remove_node->nextNode;
-	else head = remove_node->nextNode;
-	free(remove_node);
-	size--;
-	nodeShortcut = head;
-	posShortcut = 0;
+	deletePosition (pos, true);
 }
 
 // Checks in the list is empty
